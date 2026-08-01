@@ -1,0 +1,401 @@
+# سياق المشروع: medical-ocr-demo
+**المسار:** `/home/runner/work/medical-ocr-demo/medical-ocr-demo`
+**تاريخ التوليد:** 2026-08-01T22:03:11.254672
+
+## 📊 إحصائيات المشروع
+- **إجمالي الملفات الممسوحة:** 117
+- **الملفات المضمنة:** 7
+- **إجمالي الحجم:** 9,766 بايت
+
+### اللغات والتقنيات:
+- Other: 3 ملف
+- Markdown: 2 ملف
+- Text: 1 ملف
+- Python: 1 ملف
+
+## 🌳 شجرة الملفات
+```
+medical-ocr-demo/
+├── .dockerignore
+├── .gitignore
+├── Dockerfile
+├── GITHUB_ACTIONS_GUIDE.md
+├── README.md
+├── deploy_space.py
+├── requirements.txt
+```
+
+## 📁 محتوى الملفات
+
+### `README.md`
+**اللغة:** Markdown | **الأسطر:** 57 | **الحجم:** 1,367 حرف
+
+```markdown
+---
+title: Omni Medical OCR — نظام استخراج النصوص الطبية العربية
+emoji: 🏥
+colorFrom: indigo
+colorTo: blue
+sdk: docker
+pinned: true
+license: mit
+app_port: 7860
+---
+
+# 🏥 Omni Medical OCR
+
+نظام متكامل لاستخراج وتصحيح النصوص الطبية العربية باستخدام الذكاء الاصطناعي.
+
+## المسار (Pipeline)
+
+```
+رفع صورة → تنظيف وتحسين → OCR متعدد المحركات → تصحيح تلقائي → استخراج الكيانات → عرض النتائج
+```
+
+## المحركات المدعومة
+
+| المحرك | الوصف |
+|--------|-------|
+| **PaddleOCR** | محرك OCR أساسي — دعم ممتاز للعربية |
+| **Tesseract** | tesseract-ocr-ara — محرك كلاسيكي موثوق |
+| **EasyOCR** | محرك خفيف قائم على التعلم العميق (اختياري) |
+
+## الميزات
+
+- **معالجة مسبقة متقدمة**: إزالة الظلال، تصحيح الميل، تحسين التباين، ثنائية الألوان
+- **OCR متعدد المحركات**: نتائج كل محرك + تصويت الأغلبية
+- **تصحيح تلقائي**: قاموس طبي عربي + قواعد لغوية
+- **استخراج الكيانات**: أدوية، أمراض، أعراض، جرعات، تواريخ
+- **واجهة عربية كاملة**: دعم RTL، خطوط عربية واضحة
+- **تصدير النتائج**: نسخ، تحميل كـ TXT أو JSON
+
+## المتطلبات
+
+- **الوضع الأساسي (CPU)**: يعمل بدون GPU
+- **الوضع المتقدم (GPU)**: ضع `ENABLE_LLM=true` لتفعيل Jais-13B
+
+## متغيرات البيئة
+
+| المتغير | الوصف | الافتراضي |
+|---------|-------|-----------|
+| `ENABLE_LLM` | تفعيل Jais تصحيح سياقي (يتطلب GPU) | `false` |
+| `HF_TOKEN` | رمز HuggingFace للحفظ | - |
+
+## المطور
+
+**Dr. Abdulmalek Tamer Al-husseini**
+
+## الترخيص
+
+MIT License
+```
+
+---
+
+### `requirements.txt`
+**اللغة:** Text | **الأسطر:** 7 | **الحجم:** 137 حرف
+
+```text
+gradio>=4.44.0,<5.0.0
+opencv-python-headless>=4.8.0
+pytesseract>=0.3.10
+Pillow>=10.0.0
+numpy>=1.24.0
+paddleocr>=2.7.0
+paddlepaddle>=2.5.0
+```
+
+---
+
+### `.dockerignore`
+**اللغة:** Other | **الأسطر:** 21 | **الحجم:** 166 حرف
+
+```other
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+dist/
+build/
+.eggs/
+.git/
+.gitignore
+.env
+*.log
+temp_*.jpg
+*.tmp
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+```
+
+---
+
+### `GITHUB_ACTIONS_GUIDE.md`
+**اللغة:** Markdown | **الأسطر:** 85 | **الحجم:** 2,001 حرف
+
+```markdown
+# 🚀 دليل استخدام سياق المشروع من الجوال
+
+## الهدف
+تشغيل سكريبت استخراج السياق أونلاين على GitHub دون الحاجة إلى كمبيوتر.
+
+---
+
+## ⚡ الخطوات (من الجوال)
+
+### 1. إضافة الملفات للمستودع
+
+في مستودعك على GitHub، أنشئ هذين الملفين (يمكنك من التطبيق أو المتصفح):
+
+```
+.github/
+├── scripts/
+│   └── repo_to_context.py    ← السكريبت
+└── workflows/
+    └── generate-context.yml  ← الـ Workflow
+```
+
+**للإنشاء من الجوال:**
+1. افتح تطبيق GitHub
+2. ادخل إلى مستودعك
+3. اضغط ➕ (Add file) → Create new file
+4. اكتب المسار: `.github/workflows/generate-context.yml`
+5. الصق محتوى ملف الـ Workflow
+6. اضغط Commit
+7. كرر نفس الخطوة لملف السكريبت: `.github/scripts/repo_to_context.py`
+
+---
+
+### 2. تشغيل الـ Workflow
+
+1. من تطبيق GitHub، ادخل إلى مستودعك
+2. اذهب إلى تبويب **Actions** (الأسفل)
+3. اختر **📦 Generate Project Context**
+4. اضغط **Run workflow** (الأعلى)
+5. اترك الإعدادات الافتراضية واضغط **Run workflow** مرة أخرى
+
+---
+
+### 3. تحميل الملف
+
+1. انتظر 30 ثانية حتى تكتمل العملية (سترى ✅ أخضر)
+2. ارجع إلى تبويب **Code** (الملفات)
+3. ستجد ملفاً جديداً باسم `project_context.txt`
+4. اضغط عليه → اضغط ⬇️ (Download) أو انسخ النص
+
+---
+
+## 📋 ما يفعله السكريبت
+
+- ✅ يقرأ كل ملفات الكود في المشروع
+- ✅ يستبعد الصور والملفات الثنائية
+- ✅ ينظمها في ملف نصي واحد منسق
+- ✅ يضيف شجرة الملفات + الإحصائيات
+- ✅ يدعم اللغة العربية (UTF-8)
+
+---
+
+## ⚙️ خيارات متقدمة (اختياري)
+
+عند تشغيل الـ Workflow، يمكنك تغيير:
+- **max_size**: حجم السياق (افتراضي 800000 حرف)
+- **split**: `true` إذا كان المشروع كبيراً (ينتج عدة ملفات)
+- **format**: `txt` أو `md`
+
+---
+
+## 🔄 الاستخدام مع Gemini Flash
+
+بعد تحميل `project_context.txt`:
+1. افتح [Gemini Flash](https://gemini.google.com) في متصفح الجوال
+2. ارفع الملف
+3. ابدأ المحادثة: *"هذا مشروعي. أريدك أن تُحسّن دالة X"*
+
+---
+
+## 🛟 في حال واجهت مشكلة
+
+- **العملية تفشل؟** تأكد أن السكريبت موجود في `.github/scripts/repo_to_context.py`
+- **الملف غير موجود؟** تأكد من صلاحيات الـ Workflow (يجب أن يحتوي على `permissions: contents: write`)
+- **مشروع كبير؟** شغل الـ Workflow مع `split = true`
+
+```
+
+---
+
+### `deploy_space.py`
+**اللغة:** Python | **الأسطر:** 94 | **الحجم:** 3,247 حرف
+**الاعتماديات:**
+- `import argparse`
+- `import os`
+- `import subprocess`
+- `import sys`
+- `from pathlib import Path`
+
+```python
+#!/usr/bin/env python3
+"""
+deploy_space.py — Deploy Omni Medical OCR to Hugging Face Spaces
+Usage:
+    python deploy_space.py --token hf_xxxxxxxxxxxxx
+    # Or set HF_TOKEN env var:
+    export HF_TOKEN=hf_xxxxxxxxxxxxx && python deploy_space.py
+"""
+import argparse
+import os
+import subprocess
+import sys
+from pathlib import Path
+
+
+def run(cmd, cwd=None, check=True):
+    """Run a shell command and return its output."""
+    print(f"  $ {cmd}")
+    result = subprocess.run(cmd, shell=True, cwd=cwd, capture_output=True, text=True)
+    if result.stdout:
+        print(f"    {result.stdout.strip()}")
+    if result.returncode != 0 and check:
+        print(f"  ERROR: {result.stderr.strip()}")
+        sys.exit(1)
+    return result
+
+
+def main():
+    parser = argparse.ArgumentParser(description="Deploy Omni Medical OCR to HF Spaces")
+    parser.add_argument("--token", help="HuggingFace access token (or set HF_TOKEN env var)")
+    parser.add_argument("--repo", default="DrAbdulmalek/medical-ocr-demo", help="Space repo ID")
+    parser.add_argument("--skip-create", action="store_true", help="Skip repo creation (if already exists)")
+    args = parser.parse_args()
+
+    token = args.token or os.environ.get("HF_TOKEN", "")
+    if not token:
+        print("ERROR: No HuggingFace token provided!")
+        print("  Get one from: https://huggingface.co/settings/tokens")
+        print("  Usage: python deploy_space.py --token hf_xxx")
+        print("     or: export HF_TOKEN=hf_xxx && python deploy_space.py")
+        sys.exit(1)
+
+    space_dir = Path(__file__).parent
+    repo_id = args.repo
+
+    print(f"\n{'='*60}")
+    print(f"  Omni Medical OCR — HF Space Deployment")
+    print(f"  Target: https://huggingface.co/spaces/{repo_id}")
+    print(f"{'='*60}\n")
+
+    # Step 1: Create Space repo on HF (if needed)
+    if not args.skip_create:
+        print("Step 1/3: Creating Space repository on HuggingFace...")
+        run(
+            f'HF_TOKEN={token} hf repos create {repo_id} --type space --sdk docker',
+            cwd=space_dir, check=False
+        )
+        print()
+    else:
+        print("Step 1/3: Skipping repo creation (already exists)\n")
+
+    # Step 2: Configure git remote
+    print("Step 2/3: Configuring git remote...")
+    run(f"git remote remove origin 2>/dev/null || true", cwd=space_dir, check=False)
+    run(
+        f'git remote add origin https://DrAbdulmalek:{token}@huggingface.co/spaces/{repo_id}',
+        cwd=space_dir
+    )
+    print()
+
+    # Step 3: Push to HF
+    print("Step 3/3: Pushing to HuggingFace...")
+    run("git push -u origin main --force", cwd=space_dir)
+    print()
+
+    # Done
+    url = f"https://huggingface.co/spaces/{repo_id}"
+    print(f"{'='*60}")
+    print(f"  ✅ Space deployed successfully!")
+    print(f"")
+    print(f"  🔗 URL: {url}")
+    print(f"  📊 Status: {url}/tree/main")
+    print(f"")
+    print(f"  The Space will start building automatically.")
+    print(f"  It may take 5-10 minutes for the Docker image to build.")
+    print(f"  Once ready, the app will be live at the URL above.")
+    print(f"{'='*60}\n")
+
+    # Cleanup: remove token from remote URL
+    run(f'git remote set-url origin https://huggingface.co/spaces/{repo_id}', cwd=space_dir)
+
+
+if __name__ == "__main__":
+    main()
+```
+
+---
+
+### `Dockerfile`
+**اللغة:** Other | **الأسطر:** 40 | **الحجم:** 1,151 حرف
+
+```other
+FROM python:3.11-slim
+
+LABEL maintainer="Dr. Abdulmalek Tamer Al-husseini <drabdulmalek@proton.me>"
+LABEL description="Omni Medical OCR — Arabic Medical Text Extraction"
+
+WORKDIR /app
+
+# System dependencies for OCR + OpenCV
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libgl1-mesa-glx \
+    libglib2.0-0 \
+    libsm6 \
+    libxext6 \
+    libxrender-dev \
+    tesseract-ocr \
+    tesseract-ocr-ara \
+    tesseract-ocr-eng \
+    git \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install Python dependencies
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy application code
+COPY . .
+
+# Create non-root user for HF Spaces security
+RUN useradd -m -u 1000 appuser && chown -R appuser:appuser /app
+USER appuser
+
+# Download PaddleOCR models at build time (faster cold start)
+RUN python -c "from paddleocr import PaddleOCR; PaddleOCR(use_angle_cls=True, lang='ar', show_log=False)" || true
+
+EXPOSE 7860
+
+HEALTHCHECK --interval=30s --timeout=10s --start-period=120s --retries=3 \
+    CMD python -c "import urllib.request; urllib.request.urlopen('http://localhost:7860/')" || exit 1
+
+CMD ["python", "app.py"]
+```
+
+---
+
+### `.gitignore`
+**اللغة:** Other | **الأسطر:** 7 | **الحجم:** 53 حرف
+
+```other
+__pycache__/
+*.pyc
+.env
+*.log
+.DS_Store
+*.tmp
+.cache/
+```
+
+---
