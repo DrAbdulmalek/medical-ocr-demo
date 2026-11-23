@@ -4,4 +4,4 @@ pytesseract>=0.3.13
 Pillow>=10.0.0
 numpy>=2.5.5
 paddleocr>=2.7.0
-paddlepaddle>=2.5.0
+paddlepaddle>=3.3.1
